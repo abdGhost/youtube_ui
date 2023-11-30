@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:youtube_ui/data.dart';
 
@@ -36,36 +38,56 @@ class VideoCard extends StatelessWidget {
             )
           ],
         ),
-        Row(
-          children: [
-            GestureDetector(
-              onTap: () => print('Navigate to profile Screen'),
-              child: CircleAvatar(
-                foregroundImage: NetworkImage(video.author.profileImageUrl),
+        Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () => log('Navigate to profile Screen'),
+                child: CircleAvatar(
+                  foregroundImage: NetworkImage(video.author.profileImageUrl),
+                ),
               ),
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Flexible(
-                    child: Text(
-                      video.title,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+              const SizedBox(width: 8.0),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        video.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(fontSize: 15.0),
+                      ),
                     ),
-                  ),
-                  Flexible(
-                    child: Text(
-                      '${video.author.username}. ${video.viewCount} views. ${timeage.format(video.timestamp)}',
-                      overflow: TextOverflow.ellipsis,
+                    Flexible(
+                      child: Text(
+                        '${video.author.username}. ${video.viewCount} views. ${timeage.format(video.timestamp)}',
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall!
+                            .copyWith(fontSize: 14.0),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            )
-          ],
+              GestureDetector(
+                  onTap: () {
+                    log('Navigate to more details screen');
+                  },
+                  child: IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.more_vert)))
+            ],
+          ),
         )
       ],
     );
