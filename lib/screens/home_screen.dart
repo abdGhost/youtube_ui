@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_ui/data.dart';
+import '../widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -9,33 +10,15 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            leadingWidth: 100.0,
-            leading: Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Image.asset('assets/yt_logo_dark.png'),
+          const CustomSliverAppBar(),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                final video = videos[index];
+                return VideoCard(video: video);
+              },
+              childCount: videos.length,
             ),
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.cast),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.notification_add_outlined),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.search),
-              ),
-              IconButton(
-                onPressed: () {},
-                iconSize: 40.0,
-                icon: CircleAvatar(
-                  foregroundImage: NetworkImage(currentUser.profileImageUrl),
-                ),
-              ),
-            ],
           ),
         ],
       ),
